@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>CMIG董家渡</title>
+
+		<style type="text/css">
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: "微软雅黑";
+				/*overflow: hidden;*/
+				min-width: 320px;
+			}
+			/*新增html字体*/
+			/*html{
+				font-size:62.5%; 
+				} 
+				body{
+					font-size:12px;
+					font-size:5rem ; 
+					} 
+					p{
+						font-size:14px;
+						font-size:1.4rem;
+						}*/
+            /*结束html字体*/
+			*{margin: 0 !important;padding: 0 !important;}
+			.tableBoxHan {
+				height: 100%;
+			}
+			
+			.container-fluid {
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.row {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.height20 {
+				height: 20%;
+			}
+			.height15 {
+				height: 15%;
+			}
+			.height80 {
+				height: 80%;
+			}
+			
+			.height30 {
+				height: 30%;
+			}
+			
+			.height70 {
+				height: 70%;
+			}
+			
+			.height75 {
+				height: 75%;
+			}
+			
+			.height25 {
+				height: 25%;
+			}
+			
+			.height40 {
+				height: 40%;
+			}
+			
+			.height60 {
+				height: 60%;
+			}
+			
+			.height100 {
+				height: 100%;
+			}
+			
+			.height90 {
+				height: 90%;
+			}
+			
+			.height10 {
+				height: 10%;
+			}
+			.height50{
+				height: 50%;
+			}
+			.marginBott15{
+				border-bottom: 15px solid transparent ;
+				 box-sizing: border-box ;
+			}
+			.marginTop20{
+				border-top: 20px solid transparent ;
+				 box-sizing: border-box ;
+			}
+			.height65{
+				height: 65%;
+			}
+			.morebigyj{
+				background-image: url(img/index_bgd.png) repeat;
+				background-position: center;
+				background-size: 100% 100%;
+				padding-right: 15px !important;
+				padding-left: 15px !important;
+			}
+			.centerTeb{
+				padding-right: 10px !important;
+				padding-left: 10px !important;
+			}
+			.bgd{
+				overflow: hidden !important;
+			}
+			.height30{
+				height: 30%;
+			}
+			.shImag{
+				
+			}
+			.shImag img{
+				height: 100%;
+				width: 100%;
+				display: inline-block;
+			}
+			/*嘉业样式*/
+			.nomarl {
+				position: absolute;
+				/*background: url(img/orange.png)no-repeat;*/
+				/*background: deepskyblue;*/
+				width: 20px;
+				height: 32px;
+				/*border-radius: 50%;*/
+				z-index: 10;
+			}
+			
+			.bling {
+				position: absolute;
+				/*background: url(img/blue.png) no-repeat;*/
+				/*background: deepskyblue;*/
+				width: 20px;
+				height: 32px;
+				/*border-radius: 50%;*/
+				z-index: 10;
+			}
+			
+			.bling>img {
+				position: absolute;
+				width: 20px;
+				height: 32px;
+				animation: bling 500ms infinite linear;
+				-moz-animation: bling 500ms infinite linear;
+				/* Firefox */
+				-webkit-animation: bling 500ms infinite linear;
+				/* Safari and Chrome */
+				-o-animation: bling 500ms infinite linear;
+				/* Opera */
+				/*box-shadow: 2px 2px 2px #ccc;*/
+			}
+			
+			#documentPanel {
+				position: absolute;
+				min-width: 165px;
+				max-width: 180px;
+				text-align: center;
+				padding: 5px 15px;
+				background: #ffffff;
+				z-index: 15;
+				border-radius: 5px;
+				/*border: 1px solid #CCCCCC;*/
+				left: 0px;
+				top: 0px;
+				display: none;
+				/*overflow: hidden;*/
+				background-color: rgba(222,167,62,1);
+				color: #fff;
+				font-family: "微软雅黑";
+			}
+			#documentPanel li{
+				text-align: left;
+			}
+			#documentPanel>ul>li:first-child{
+				position: absolute;
+				width:0; 
+    height:0; 
+    border-left:50px solid transparent;
+    border-right:0px solid transparent;
+    border-bottom: 10px;
+    border-top:20px solid rgba(222,167,62,1);
+    top: 5px;
+    left: -40px;
+			}
+			@keyframes bling {
+				from {
+					top: 0px;
+					/*transform: rotateY(0deg);*/
+				}
+				to {
+					top: 10px;
+					/*transform: rotateY(180deg);*/
+				}
+			}
+			
+			@-moz-keyframes bling
+			/* Firefox */
+			
+			{
+				from {
+					top: 0px;
+					/*transform: rotateY(0deg);*/
+				}
+				to {
+					top: 10px;
+					/*transform: rotateY(180deg);*/
+				}
+			}
+			
+			@-webkit-keyframes bling
+			/* Safari and Chrome */
+			
+			{
+				from {
+					top: 0px;
+					/*transform: rotateY(0deg);*/
+				}
+				to {
+					top: 10px;
+					/*transform: rotateY(180deg);*/
+				}
+			}
+			
+			@-o-keyframes bling
+			/* Opera */
+			
+			{
+				from {
+					top: 0px;
+					/*transform: rotateY(0deg);*/
+				}
+				
+				to {
+					top: 10px;
+					/*transform: rotateY(180deg);*/
+				}
+			}
+			.leftFlo{
+				width: 100%;
+				text-align: center;
+			}
+			.paddingRight15{
+				/* padding-right: 15px !important; */
+				font-size:13px;
+				display:table-cell; 
+				color: #fff;
+				 vertical-align:middle; 
+				 /*border-radius: 2px;*/
+			}
+			.safePro{
+				
+			}
+			.mainBox>div{
+				display: inline-block;
+			}
+			.paddingTb{
+				padding: 22% 0px !important;
+			}
+			.padingSpan{
+        display: inline-block;
+    font-size: 25px;
+    padding: 20% !important;
+    position: absolute;
+    left: 7%;
+    top: 44%;
+			}
+			#container33,#container32,#container31{
+				width: 33.3%;
+				
+			}
+			.progressSlip{
+				display: inline-block;
+				font-size: 48px;
+				font-family: "微软雅黑";
+				color: #44f7cf;
+				font-weight: bolder;
+			}
+			.progressSlipFa{
+				font-family: "微软雅黑";
+				color: #fff;
+				display: inline-block;
+				font-size: 26px;
+				width: 100%;
+				text-align: center;
+			}
+			.clearfix ::after{
+				content: "";
+				display: table;
+				clear: both;
+			}
+			.tp{
+				margin-top: 10px !important;
+				padding-right: 10px !important;
+			}
+			.padR{
+				padding-right: 2px !important;
+			}
+            #container32,#container33{
+				border-left: 1px solid transparent;
+				box-sizing: border-box;
+				
+			}
+			.colorSize{
+				text-align: left !important;
+				font-size: 15px;
+				/*line-height: 30px;*/
+    color: #fff;
+    font-family: "微软雅黑";
+			}
+			.nowstate{
+				text-align: left;
+				font-size: 16px;
+			}
+			.nowstatetext{
+				font-size: 18px;
+				color: #44f7cf;
+			}
+			.imgli{
+				text-align: center;
+			}
+				.paddingleft15{
+					padding-left: 10px !important;
+					}
+		.projecSlip{
+						    display: block;
+                            color: #fff;
+                            font-size: 18px;
+					}
+					.projecEnd{
+						font-size: 21px;
+						color: #44f7cf;
+					}
+					.titleDjd{
+						text-align: center;
+						width: 100%;
+						height: 5%;
+						font-size: 23px;
+						font-weight: 600;
+						color: #fff;
+					}
+					.height95{
+						height: 95%;
+					}
+		</style>
+	</head>
+
+	<body>
+			<div class="morebigyj">
+				<div class="row mainBox height100">
+					<div class="titleDjd col-md-12">董家渡金融城项目总览</div>
+					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 height95 invePhase ">
+						<div class="col-md-10 height75  newhouse">
+							<div class="col-md-7 height10 "></div>
+							<div class="col-md-7 height80  shImag leftFlo">
+								<img src="img/leftFlo.png" class="img-responsive" style="height: 85%;width: 85%;"/>
+								   <span class="progressSlipFa"><span style="display: inline-block;">项目整体进度：<span class="progressSlip"></span></span></span>
+								   <span class="projecSlip" style="font-size: 12px;">已完成工程产值占预计工程总产值的比例</span>
+								   <span class="projecSlip">计划竣工时间：<span class="projecEnd">2021年</span></span>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-md-12 height25 " >
+							<div  id="container31" class="height100 col-xs-7 col-sm-3 text-right">
+								<div class="height25"></div>
+								<div class="height50 safePro paddingRight15 col-xs-12 col-sm-12">
+									<ul class="height100">
+										<li class="height100 col-xs-3 col-sm-3 imgli">
+											<img class="img-responsive" src="img/gcjd.png" alt="">
+										</li>
+										<li class="col-xs-9 col-sm-9 height100 text-left paddingleft15">
+											<!-- <p class="colorSize engineerp">45</p> -->
+											<p class="colorSize">工程进展</p>
+											<p class="nowstate">当前状态&nbsp;:&nbsp;<span class="nowstatetext engineerspan">正常</span></p>
+										</li>
+									</ul>
+								</div>
+								<div class="height25"></div>
+							</div>
+							<div  id="container32" class="height100 col-xs-7 col-sm-3 text-right">
+								<div class="height25"></div>
+								<div class="height50 safePro paddingRight15 col-xs-12 col-sm-12" >
+									<ul class="height100">
+										<li class="height100 col-xs-3 col-sm-3 imgli">
+											<img class="img-responsive" src="img/zybz.png" alt="">
+										</li>
+										<li class="col-xs-9 col-sm-9 height100 text-left paddingleft15">
+											<!-- <p class="colorSize resourcep">45</p> -->
+											<p class="colorSize">资源保障</p>
+											<p class="nowstate">当前状态&nbsp;:&nbsp;<span class="nowstatetext resourcespan">正常</span></p>
+										</li>
+									</ul>
+								</div>
+								<div class="height25"></div>
+							</div>
+							<div  id="container33" class="height100 col-xs-7 col-sm-3 text-right ">
+								<div class="height25"></div>
+								<div class="height50 safePro paddingRight15 col-xs-12 col-sm-12">
+									<ul class="height100">
+										<li class="height100 col-xs-3 col-sm-3 imgli">
+											<!-- <span class="glyphicon glyphicon-exclamation-sign padingSpan constructspan"></span> -->
+											<img class="img-responsive" src="img/safa.png" alt="">
+										</li>
+										<li class="col-xs-9 col-sm-9 height100 paddingleft15">
+											<!-- <p class="colorSize constructp">45</p> -->
+											<p class="colorSize text-left">施工安全</p>
+											<p class="nowstate">当前状态&nbsp;:&nbsp;<span class="nowstatetext constructspan">正常</span></p>
+										</li>
+									</ul>
+								</div>
+								<div class="height25"></div>
+							</div>
+						</div>
+                    
+					</div>
+					 
+					<!--center-->
+					<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 height95 centerTeb marginTop20 clearfix">
+						
+						<div class="col-md-12 height60 shImag text-center" id="zmwy_map">
+							<img src="img/newLocalHouse.png" class="img-responsive" style="width: 66%;"/>
+							<div id="documentPanel">
+			               </div>
+			
+			
+			            
+						</div>
+						<div class="col-md-12 height40 ">
+							<div id="container4" class="height100 col-md-12">
+								
+							</div>
+						</div>
+					</div>
+					
+					<!--right-->
+					<!--<div class="col-md-3 height100 ">
+						<div class="col-md-12 height60 marginBott15">
+						</div>
+						<div class="col-md-12 height40 marginBott15">
+						</div>
+					</div>-->
+				</div>
+			</div>
+			<!--div测试-->
+	</body>
+	<script>
+		$(function(){
+			initContainer3();
+			garden();
+		})
+		                var $height = $(window).height();
+		                var $width = $(window).width();
+                        $(".morebigyj").height($height - 60);
+                        $('.progressSlipFa').css('font-size',$width*0.018);
+				$('.progressSlip').css('font-size',$width*0.026);
+				$('.projecSlip').css('font-size',$width*0.009);
+				$('.projecEnd').css('font-size',$width*0.015);
+				$('.colorSize').css('font-size',$width*0.012);
+				$('.nowstate').css('font-size',$width*0.01);
+                $('.nowstate').css('font-size',$width*0.01);
+                $('.nowstatetext').css('font-size',$width*0.015);
+                        
+	</script>
+</html>

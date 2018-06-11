@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>多模块适配方案</title>
+		<!--<link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.css" />
+		<script src="bootstrap3/js/jquery-1.11.2.min.js"></script>
+		<script src="bootstrap3/js/bootstrap.min.js"></script>-->
+		<style type="text/css">
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			*{margin: 0 !important;padding: 0 !important;}
+			
+			.row {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.height100 {
+				height: 100%;
+			}
+		
+			.bgd{
+				overflow: hidden !important;
+			}
+		</style>
+	</head>
+
+	<body>
+			<div class="morebig">
+				<div class="row height100 ">
+					<div class="col-md-12 height100">
+						<div class="col-md-12 height100 CMIGmainwy">
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+	<script>
+		
+		var $height = $(window).height();
+        $(".morebig").height($height - 60);
+        $.ajax({
+			type : "get",
+			url : globalUrl+"/screensrv/rest/tableau/getTicket?param=screen73",
+			success : function(res) {
+				$(".CMIGmainwy").append("<iframe class='CMIGtg1 bgd' src="+res+"width='100%' height='100%'></iframe>");
+			},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // 状态码
+                    console.log(XMLHttpRequest.status);
+                    // 状态
+                    console.log(XMLHttpRequest.readyState);
+                    // 错误信息   
+                    console.log(textStatus);
+                }
+		});
+	</script>
+</html>

@@ -1,0 +1,859 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>数据动态监控</title>
+		<link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.css" />
+		<script src="js/GlobalUrl.js"></script>
+		<script src="bootstrap3/js/jquery-1.11.2.min.js"></script>
+		<script src="bootstrap3/js/bootstrap.min.js"></script>
+		<script src="js/highcharts.js"></script>
+		<script src="js/highcharts-more.js"></script>
+		<script src="js/common.js"></script>
+		<style type="text/css">
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				/*overflow: hidden;*/
+				box-sizing: border-box;
+				min-width: 320px;
+			}
+			
+			ul,
+			li {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.container-fluid {
+				padding: 0px !important;
+				margin: 0px !important;
+				background-image: url(img/index_bgd.png);
+			}
+			
+			.container-fluid iframe {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				min-height: 100%;
+			}
+			
+			.row {
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+			
+			.height20 {
+				height: 20%;
+			}
+			
+			.height30 {
+				height: 30%;
+			}
+			
+			.height25 {
+				height: 25%;
+			}
+			
+			.height40 {
+				height: 40%;
+			}
+			
+			.height100 {
+				height: 100%;
+			}
+			
+			.navbar {
+				width: 100%;
+				padding: 0 !important;
+				border-radius: 0px !important;
+				/*background: rgba(11, 61, 153, 0.3);*/
+				z-index: 99;
+				margin-bottom: 0px !important;
+				border: none !important;
+			}
+			
+			.zmtDataHeader li {
+				z-index: 999;
+				display: inline-block;
+				height: 100%;
+			}
+			
+			.zmtDataHeader>li:nth-child(2) {
+				border-top: 60px solid rgba(11, 61, 153, 0.3);
+				border-right: 30px solid transparent;
+				border-left: 30px solid transparent;
+			}
+			
+			.zmtDataHeader>li:nth-child(2) div {
+				display: inline-block;
+				width: 100%;
+				height: 0;
+				border-top: 46px solid rgba(11, 61, 153, 0.6);
+				border-right: 30px solid transparent;
+				border-left: 30px solid transparent;
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -61px;
+			}
+			
+			.zmtDataHeader>li:nth-child(2) div>a {
+				font-weight: 600;
+				font-size: 25px;
+				font-family: "微软雅黑";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -40px;
+				color: #fff;
+				text-decoration: none;
+			}
+			/*测试*/
+			.navbar ul{
+				background: rgba(11, 61, 153, 0.3);
+				height: 42px;
+			}
+			/*熊掌*/
+			#tabs1{
+				position: relative;
+				text-align: center;
+				width: 17%;
+				height: 0px;
+				margin: 0 auto !important;
+				background: red;
+				/*height: 30px;*/
+				border: none;
+			}
+			#tabs1>li{
+				position: absolute;
+                bottom: 0px;
+                height: 5%;
+                width: 5%;
+                border-radius: 10%;
+                background: purple;
+                overflow: hidden;
+			}
+			#tabs1>li:first-child{
+				bottom: 4px;
+			}
+			#tabs1>li:nth-child(2){
+				bottom: 30px;
+			}
+			#tabs1>li:nth-child(3){
+				bottom:45px;
+			}
+			#tabs1>li:nth-child(4){
+				bottom: 45px;
+			}
+			#tabs1>li:nth-child(5){
+				bottom: 30px;
+			}
+			#tabs1>li:nth-child(6){
+				bottom: 4px;
+			}
+			@media only screen and (max-width:992px ) {
+				#tabs1{
+					display: none;
+				}
+			}
+			.bg{
+				background-image: url(img/index_bgd.png);
+				background-repeat: repeat;
+			}
+			*{margin: 0 !important;padding: 0 !important;}
+			.tableBoxHan {
+				height: 100%;
+			}
+			
+			.container-fluid {
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.row {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.height20 {
+				height: 20%;
+			}
+			.height15 {
+				height: 15%;
+			}
+			.height80 {
+				height: 80%;
+			}
+			
+			.height30 {
+				height: 30%;
+			}
+			
+			.height70 {
+				height: 70%;
+			}
+			
+			.height75 {
+				height: 75%;
+			}
+			
+			.height25 {
+				height: 25%;
+			}
+			
+			.height40 {
+				height: 40%;
+			}
+			
+			.height60 {
+				height: 60%;
+			}
+			
+			.height100 {
+				height: 100%;
+			}
+			
+			.height90 {
+				height: 90%;
+			}
+			
+			.height10 {
+				height: 10%;
+			}
+			.height50{
+				height: 50%;
+			}
+			.marginBott15{
+				border-bottom: 15px solid transparent ;
+				 box-sizing: border-box ;
+			}
+			.marginTop20{
+				border-top: 20px solid transparent ;
+				 box-sizing: border-box ;
+			}
+			.height65{
+				height: 65%;
+			}
+			.morebigyj{
+				background-image: url(img/bigBg.png);
+				background-position: center;
+				background-size: 100% 100%;
+				padding-right: 15px !important;
+				padding-left: 15px !important;
+			}
+			.centerTeb{
+				padding-right: 10px !important;
+				padding-left: 10px !important;
+			}
+			.bgd{
+				background: #001a4b;
+				overflow: hidden !important;
+			}
+			.height30{
+				height: 30%;
+			}
+			.shImag{
+				
+			}
+			.shImag img{
+				height: 100%;
+				width: 100%;
+				display: inline-block;
+			}
+			/*嘉业样式*/
+			.nomarl {
+				position: absolute;
+				/*background: url(img/orange.png)no-repeat;*/
+				/*background: deepskyblue;*/
+				width: 20px;
+				height: 32px;
+				/*border-radius: 50%;*/
+				z-index: 10;
+			}
+			
+			.bling {
+				position: absolute;
+				/*background: url(img/blue.png) no-repeat;*/
+				/*background: deepskyblue;*/
+				width: 20px;
+				height: 32px;
+				/*border-radius: 50%;*/
+				z-index: 10;
+			}
+			
+			.bling>img {
+				position: absolute;
+				width: 20px;
+				height: 32px;
+				animation: bling 500ms infinite linear;
+				-moz-animation: bling 500ms infinite linear;
+				/* Firefox */
+				-webkit-animation: bling 500ms infinite linear;
+				/* Safari and Chrome */
+				-o-animation: bling 500ms infinite linear;
+				/* Opera */
+				/*box-shadow: 2px 2px 2px #ccc;*/
+			}
+			
+			#documentPanel {
+				position: absolute;
+				width: 165px;
+				text-align: center;
+				padding: 5px 15px;
+				background: #ffffff;
+				z-index: 15;
+				border-radius: 5px;
+				/*border: 1px solid #CCCCCC;*/
+				left: 0px;
+				top: 0px;
+				display: none;
+				/*overflow: hidden;*/
+				background-color: rgba(222,167,62,1);
+				color: #fff;
+				font-family: "微软雅黑";
+			}
+			#documentPanel li{
+				text-align: left;
+			}
+			#documentPanel>ul>li:first-child{
+				position: absolute;
+				width:0; 
+    height:0; 
+    border-left:50px solid transparent;
+    border-right:0px solid transparent;
+    border-bottom: 10px;
+    border-top:20px solid rgba(222,167,62,1);
+    top: 5px;
+    left: -40px;
+			}
+			@keyframes bling {
+				from {
+					top: 0px;
+					/*transform: rotateY(0deg);*/
+				}
+				to {
+					top: 10px;
+					/*transform: rotateY(180deg);*/
+				}
+			}
+			
+			@-moz-keyframes bling
+			/* Firefox */
+			
+			{
+				from {
+					top: 0px;
+					/*transform: rotateY(0deg);*/
+				}
+				to {
+					top: 10px;
+					/*transform: rotateY(180deg);*/
+				}
+			}
+			
+			@-webkit-keyframes bling
+			/* Safari and Chrome */
+			
+			{
+				from {
+					top: 0px;
+					/*transform: rotateY(0deg);*/
+				}
+				to {
+					top: 10px;
+					/*transform: rotateY(180deg);*/
+				}
+			}
+			
+			@-o-keyframes bling
+			/* Opera */
+			
+			{
+				from {
+					top: 0px;
+					/*transform: rotateY(0deg);*/
+				}
+				
+				to {
+					top: 10px;
+					/*transform: rotateY(180deg);*/
+				}
+			}
+			.leftFlo{
+				width: 100%;
+				text-align: center;
+				background: url(img/bg_house.png);
+				background-position: 100% 100%;
+				background-repeat: no-repeat;
+				background-size:67%;
+			}
+			.newhouse{
+				background: url(img/newhouse.png);
+				background-position: 88% 79%;
+				background-repeat: no-repeat;
+				background-size:64% 29%;
+			}
+			.colorSize{
+				font-size: 27px;
+				line-height: 50px;
+    color: #fff;
+    font-family: "微软雅黑";
+			}
+			.paddingRight15{
+				/* padding-right: 15px !important; */
+				font-size:13px;
+				display:table-cell; 
+				color: #fff;
+				 vertical-align:middle; 
+				 /*border-radius: 2px;*/
+			}
+			.safePro{
+				
+			}
+			.mainBox>div{
+				display: inline-block;
+			}
+			.paddingTb{
+				padding: 22% 0px !important;
+			}
+			.padingSpan{
+        display: inline-block;
+    font-size: 25px;
+    padding: 20% !important;
+    position: absolute;
+    left: 7%;
+    top: 44%;
+			}
+			#container33,#container32,#container31{
+				width: 33.3%;
+				
+			}
+			.progressSlip{
+				display: inline-block;
+				font-size: 20px;
+				font-family: "微软雅黑";
+				width: 80%;
+				color: #fff;
+				text-align: center;
+				font-weight: bolder;
+			}
+			.clearfix ::after{
+				content: "";
+				display: table;
+				clear: both;
+			}
+			.tp{
+				margin-top: 10px !important;
+				padding-right: 10px !important;
+			}
+			.padR{
+				padding-right: 2px !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid">
+		<!--header-->
+		<div class="row bg">
+				<div class="tab-content bigScreen">
+					<nav class="navbar">
+						<ul class="zmtDataHeader">
+							<li class="col-lg-3 col-md-3 col-sm-0 col-xs-0 "></li>
+							<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center">
+								<div>
+									<a>中民投大数据展示</a>
+								</div>
+							</li>
+							<li class="col-lg-3 col-md-3 col-sm-0 col-xs-0 "></li>
+					</nav>
+					<div class="tab-pane active" id="tabs-1" >
+					</div>
+					 <div class="tab-pane" id="tabs-2">
+					</div>
+					<div class="tab-pane" id="tabs-3">
+					</div>
+					<div class="tab-pane" id="tabs-4"> 
+					</div>
+				</div>
+			</div>
+		<!--content-->
+		<div class="morebigyj">
+				<div class="row mainBox height100 marginTop20">
+					<!--left-->
+					<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 height100 invePhase ">
+						<!--<div class="col-md-12 height30 marginBott15">
+						</div>-->
+						<div class="col-md-10 height60 marginBott15 newhouse">
+							<!--<div class="col-md-5 height100 marginBott15">
+								
+							</div>-->
+							<div class="col-md-7 height100 marginBott15 shImag leftFlo">
+								<img src="img/leftFlo.png" class="img-responsive" style="height: 100%;width: 65%;"/>
+								   <span class="progressSlip"></span>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="col-md-12 height40 " >
+							<div  id="container31" class="height100 col-xs-7 col-sm-3 text-right">
+								<div class="height25"></div>
+								<div class="height50 safePro paddingRight15 col-xs-12 col-sm-12"style="background: #2abb9a;">
+									<ul class="height100">
+										<li class="height100 col-xs-5 col-sm-5">
+											<span class="glyphicon glyphicon-exclamation-sign padingSpan engineerspan"></span>
+										</li>
+										<li class="col-xs-7 col-sm-7 height100">
+											<p class="colorSize engineerp tp"></p>
+											<p class="padR">工程进展</p>
+										</li>
+									</ul>
+								</div>
+								<div class="height25"></div>
+							</div>
+							<div  id="container32" class="height100 col-xs-7 col-sm-3 text-right">
+								<div class="height25"></div>
+								<div class="height50 safePro paddingRight15 col-xs-12 col-sm-12" style="background: #4e88b6;">
+									<ul class="height100">
+										<li class="height100 col-xs-5 col-sm-5">
+											<span class="glyphicon glyphicon-exclamation-sign padingSpan resourcespan"></span>
+										</li>
+										<li class="col-xs-7 col-sm-7 height100">
+											<p class="colorSize resourcep tp"></p>
+											<p class="padR">资源保障</p>
+										</li>
+									</ul>
+								</div>
+								<div class="height25"></div>
+							</div>
+							<div  id="container33" class="height100 col-xs-7 col-sm-3 text-right ">
+								<div class="height25"></div>
+								<div class="height50 safePro paddingRight15 col-xs-12 col-sm-12"style="background: #e15c5d;">
+									<ul class="height100">
+										<li class="height100 col-xs-5 col-sm-5">
+											<span class="glyphicon glyphicon-exclamation-sign padingSpan constructspan"></span>
+										</li>
+										<li class="col-xs-7 col-sm-7 height100">
+											<p class="colorSize constructp tp"></p>
+											<p class="padR">施工安全</p>
+										</li>
+									</ul>
+								</div>
+								<div class="height25"></div>
+							</div>
+						</div>
+                    
+					</div>
+					 
+					<!--center-->
+					<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 height100 centerTeb marginTop20 clearfix">
+						
+						<div class="col-md-12 height60 shImag" id="zmwy_map">
+							<img src="img/newLocalHouse.png" class="img-responsive" style="width: 90%;"/>
+							<div id="documentPanel">
+			               </div>
+			
+			
+			            
+						</div>
+						<div class="col-md-12 height40 ">
+							<div id="container4" class="height100 col-md-12">
+								
+							</div>
+						</div>
+					</div>
+					
+					<!--right-->
+					<!--<div class="col-md-3 height100 ">
+						<div class="col-md-12 height60 marginBott15">
+						</div>
+						<div class="col-md-12 height40 marginBott15">
+						</div>
+					</div>-->
+				</div>
+			</div>
+			</div>
+	</body>
+	<script>
+		
+		               var $height = $(window).height();
+		                var $width = $(window).width();
+                        $(".morebigyj").height($height - 60);
+                        $(function(){
+                        	initContainer3();
+                        	garden();
+                        })
+	</script>
+	<script>
+		 function garden(){
+    	//项目中小区区域跳动logo定位
+    	var baseLocal = {
+			"local":[
+			{//J
+				'left': '38%',
+			    'top': '5%'
+			},
+			{//L块
+		    "left": "13%",
+			"top": "8%"
+			},{//C块
+				'left': '45%',
+			    'top': '61%'
+			},
+			{//F块
+		    "left": "55%",
+			"top": "24%"
+			},{//g地块
+				'left': '32%',
+			    'top': '20%'
+			},
+			{//H块
+		    "left": "27%",
+			"top": "34%"
+			},{//I块
+				'left': '26%',
+			    'top': '49%'
+			},
+			{//A
+		    "left": "58%",
+			"top": "6%"
+			},{
+				'left': '10%',
+			    'top': '32%'
+			},
+			{//B块
+		    "left": "58%",
+			"top": "45%"
+			}
+			]
+		}
+		var localNew = baseLocal.local;
+		var result;
+		$.ajax({
+			type : "get",
+			dataType:'json',
+			url : globalUrlBigDatajy,
+			success : function(res) {
+				var data = JSON.stringify(res.data);
+				var result = JSON.parse(data);
+         var base = {
+		      "datas": []
+		    }
+             var barX = [];
+             var barData = [];
+             var barSeriers = [];
+                     for(var i=0;i<result.length;i++){
+                     	function returnLis(){
+							if(result[i].plotStatusName==null){
+								return '暂无进度！';
+							}else{
+								return result[i].plotStatusName;
+							}
+						};
+						//右侧显示当前项目阶段
+						barSeriers.push(result[i].curStageName)
+						//获取数据内容
+						var barDataObj ={};
+						barDataObj.color="#567Fcd";
+						barDataObj.description = result[i].curStageName;
+						var plotPrg =  Number(result[i].plotPrgsRate)*100;
+		                var lastplotPrg = plotPrg.toFixed(2);
+						barDataObj.y =parseFloat(lastplotPrg);
+//						barDataObj.y=result[i].plotPrgsRate;
+						
+						barData.push(barDataObj)
+						//获取柱状Y轴名称
+                     barX.push(result[i].plotName);
+			    	    for(var temp_result in result){
+						var new_result={};
+						var new_resullt_cont={};
+						var new_result_content=[];
+						 new_result.status = true;
+						 new_result.id=i;
+						 new_resullt_cont.member = result[i].plotName;
+						new_resullt_cont.time = returnLis();
+						new_resullt_cont.plotPrgs = result[i].plotPrgsRate;
+						new_result_content.push(new_resullt_cont);
+						new_result.content = new_result_content;
+						new_result.left = localNew[i].left;
+						new_result.top = localNew[i].top;
+					} 
+                     base.datas.push(new_result);
+                     
+			    }
+                     //console.log((JSON.stringify(base.datas)))
+		//	  数据联动
+		var resultLen = result.length;
+		
+	$.each(base.datas, function(i, data) {
+		if (data.status) {
+			$("#zmwy_map").append("<a href='javascript:void(0)' class='bling' style='left:" + data.left + ";top:" + data.top + ";'  id=" + data.id + "><img src='img/blue.png'></a>")
+		} else {
+			$("#zmwy_map").append("<a href='javascript:void(0)' class='nomarl' style='left:" + data.left + ";top:" + data.top + ";' id=" + data.id + "><img src='img/orange.png'></a>")
+		}
+	});
+		$("#zmwy_map a").each(function(i) {
+			$(this).mouseover(function() {
+				var _index = $(this).index() - 2;
+				panelIndex = $(this).attr("id");
+				documentPanelPosition = $(this).position()
+				documentPanelPositionTop = documentPanelPosition.top + 30;
+				documentPanelPositionLeft = documentPanelPosition.left + 60;
+				$("#documentPanel").empty()
+				$("#documentPanel").css({
+					top: "" + documentPanelPositionTop + "px",
+					left: "" + documentPanelPositionLeft + "px"
+				}).show();
+//				alert(JSON.stringify(base.datas[_index].content))
+				//划过显示
+				var html="<ul>";
+					$.each(base.datas[_index].content,function(i,data){
+						var plotPrg =  Number(data.plotPrgs)*100;
+						html+="<li><li></li>"+data.member+'<br/>'+'阶段：'+data.time+'<br/>进度：'+plotPrg.toFixed()+"%"+"</li>";
+					})
+					html+="</ul>"
+					$("#documentPanel").append(html);
+					//控制显示柱状
+					
+					var containerBarData = barData;
+	 		 		for(var i in containerBarData){
+	 					if(i == _index){
+	 						containerBarData[i].color='#F6BD0F'
+	 					}else{
+	 						containerBarData[i].color='#567Fcd'
+	 					}
+	 				}
+					
+					containerBar(containerBarData)
+					
+			})
+			$(this).mouseleave(function() {
+				$("#documentPanel").hide()
+			})
+		})
+		  //柱状图初始化
+		  containerBar(barData)
+		  	 //封装柱状图方法start
+      function containerBar(containerBarData){
+      	var height = $("#container4").height();
+      	 $('#container4').highcharts({
+        chart: {
+		        	backgroundColor: 'rgba(11, 61, 153, 0.2)',
+		            type: 'bar',
+		            height : height
+		        },
+		         legend: {
+		            enabled: false,
+		        },
+		        exporting:{
+		            enabled : false
+		        },
+		        credits : {
+		            enabled : false  
+		        },
+		         tooltip: {
+		            shared: false,
+		            formatter : function(parme){
+		            	 return  '<br/><span style="color:' + this.point.color + '">' + this.point.description + ': ' +
+                                this.point.y.toFixed(2) + '%' + ' </span>';
+		            }
+		        },
+		        plotOptions: {
+		            bar: {
+		                grouping: false,
+		                shadow: false,
+		                borderWidth: 0,
+		                dataLabels : {
+		                	enabled: true,
+		                	formatter : function(){
+		                				if(this.point.description){
+		                			return this.point.description;
+		                		}
+		                	}
+		                }
+		            }
+		        },
+                  title: {
+            text: '地块进展图',
+             useHTML: true,
+            style: {
+                color: '#fff',      //字体颜色
+                "fontSize": "18px",   //字体大小
+                fontWeight: 'bolder'
+            }
+        },
+        xAxis: {
+            categories: barX,
+            labels : {
+		                style: {  
+                        color: '#fff',  
+                        fontSize:'13px',  
+                        fontFamily:'微软雅黑'  
+                    }
+		               }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            labels : {
+		                style: {  
+                        color: '#fff',  
+                        fontSize:'13px',  
+                        fontFamily:'微软雅黑'  
+                    }
+		               }
+        },
+        legend: {
+            reversed: false,
+            enabled: false
+        },
+        series: [
+        {
+        	name:'',
+            data: containerBarData,
+            pointPlacement: -0.2,
+            animation:true
+        }]
+    });
+    
+      }
+      //封装柱状图方法end
+      //数据关联
+//     var obj=$("#zmwy_map a");	
+//	      var objLen = $("#zmwy_map a").length-1;
+//	      $(obj).show();
+//		  var _indexjy =0;
+//		  //数据关联
+//		  var DailBar = barData;
+//		 function barAndGar(){
+//		 	     var containerBarData = barData;
+//	 		 		for(var i in containerBarData){
+//	 					if(i == _indexjy){
+//	 						containerBarData[i].color='#F6BD0F'
+//	 						
+//	 					}else{
+//	 						containerBarData[i].color='#567Fcd'
+//	 					}
+//	 				}
+//				_indexjy = (_indexjy == objLen) ? 0 : _indexjy + 1;
+//		 }
+//	 	function run(){
+//	 		       barAndGar();
+//                     }
+			    },
+			error : function(res) {
+				console.log(res.statusText);
+			}
+		});
+    }
+
+	</script>
+</html>

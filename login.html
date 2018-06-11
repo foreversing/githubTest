@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	    <script  src="bootstrap3/js/jquery-1.11.2.min.js"></script>
+	    <script src="bootstrap3/js/bootstrap.js"></script>
+	    <script src="js/common.js"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.css"/>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			body{
+				font-family: "微软雅黑";
+			}
+			.Login {
+				width: 100%;
+				height: 100%;
+				position: relative;
+			}
+			
+			.zmt_img {
+				width: 100%;
+				height: 100%;
+			}
+			
+			input {
+				outline: none;
+				font-size: 14px;
+				width: 200px;
+				height: 40px;
+				border: none;
+			}
+			
+			.box {
+				width: 350px;
+				height: 370px;
+				padding: 40px 44px;
+				background: #fff;
+				text-align: center;
+			}
+			
+			.bot {
+				border-bottom: 1px solid #6b7a94;
+				line-height: 42px;
+				font-size: 18px;
+				margin-top: 22px;
+			}
+			
+			.Login span {
+				color: #14366f;
+				margin-right: 10px;
+			}
+			
+			button {
+				width: 100%;
+				height: 48px;
+				line-height: 48px;
+				background: #062a67;
+				color: #fff;
+				border: none;
+				font-size: 20px;
+				margin-top: 40px;
+				border-radius: 6px;
+			}
+			
+			.bg {
+				background: #333;
+			}
+			
+			.Login p {
+				line-height: 34px;
+				position: absolute;
+				left: 0;
+			}
+			
+			.hint {
+				width: 100%;
+			}
+			
+			.Login p {
+				width: 100%;
+				color: red;
+				text-align: center;
+			}
+			
+			dl {
+				width: 100%;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				margin-bottom: 30px;
+			}
+			
+			dt {
+				display: inline-block;
+				width: 78px;
+				height: 48px;
+			}
+			
+			dd {
+				display: inline-block;
+				margin-left: 10px;
+				line-height: 48px;
+				color: #062a67;
+				font-size: 18px;
+				font-weight: 800;
+			}
+			
+			.footer {
+				width: 100%;
+				height: 50px;
+				text-align: center;
+				color: #fff;
+				line-height: 50px;
+				position: absolute;
+				bottom: 0;
+				background: rgba($color: #000000, $alpha: 0.4)
+			}
+			
+			@media (min-width: 768px) {
+				.box {
+					position: absolute;
+					top: 18%;
+					right: 15%;
+				}
+			}
+			
+			@media (max-width: 768px) {
+				.box {
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					margin-left: -175px;
+					margin-top: -185px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="Login">
+				<img src="img/zmt.jpg" alt="" class="zmt_img">
+				<div class="box">
+					<dl>
+						<dt>
+                            <img src="img/CMIGlogin.jpg" alt="">
+                        </dt>
+					    <dd>
+						中民投数据监控平台
+						</dd>
+					</dl>
+					<div class="bot">
+						<span class="glyphicon glyphicon-user"></span>
+						<input type="text" placeholder="请输入用户名"class="userName">
+					</div>
+					<div class="bot">
+						<span class="glyphicon glyphicon-lock"></span>
+						<input type="password" placeholder="请输入密码" class="userPassword" >
+					</div>
+					<div class="hint">
+        <p class="pname"></p>
+         
+      </div>
+					<div>
+						<button class="loginIn">登录</button>
+					</div>
+				</div>
+				<div class="footer">
+					©2013-2017中国民生投资集团cm-inv.com版权所有
+				</div>
+			</div>
+		</div>
+		
+	</body>
+	<script>
+		$(function(){
+			$lHeight = $(window).height();
+		$lWidth = $(window).width();
+		$(".Login").height($lHeight);
+		$(".pname").hide();
+		});
+		
+		
+		
+		
+		$(".loginIn").click(function(){
+			checkLogin();
+		})
+		$(window).keyup(function(ev){
+			var userName = $(".userName").val();
+		    var userPassword = $(".userPassword").val();
+			if(userName!=''&& userPassword!=''){
+				if(ev.keyCode==13){
+					checkLogin();
+				}
+		}
+		});
+		//登录验证
+		function checkLogin(ev){
+			var userName = $(".userName").val();
+		    var userPassword = $(".userPassword").val();
+			if(userName!=''&& userPassword!=''){
+			     loginIn();
+			}else if(userName==''&&userPassword==''){
+				$(".pname").html("请输入用户名和密码").show();
+			}else if(userName!=''&&userPassword==''){
+				$(".pname").html("请输入密码").show();
+			}else if(userName==''&&userPassword!=''){
+				$(".pname").html("请输入用户名").show();
+			}
+		}
+		//登录
+		function loginIn(){
+			var userName = $(".userName").val();
+		    var userPassword = $(".userPassword").val();
+			$.ajax({
+				type:"post",
+				contentType:"application/json;charset=utf-8",
+				data:{"username":userName,"password":userPassword},
+				url: globalUrl + "/screensrv/rest/tableau/login",
+				async:true,
+				success:function(data){
+					if(data.substring(0,1)=='0'){
+					sessionStorage.setItem("flagLogin", '12.12');
+					sessionStorage.setItem("userName", userName);
+						window.location.href="index.html";
+					}else{
+							$(".pname").html(data.substring(2)).show();
+					}
+				}
+			});
+		}
+		  $(function() {
+                    window.onresize = function() {
+                        var $height = $(window).height();
+                        var $width = $(window).width();
+                        $('#app').height($height);
+                        $(".Login").height($height);
+                    }
+                        
+               });
+               
+	</script>
+</html>

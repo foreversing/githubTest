@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>CMIG租赁</title>
+		<style type="text/css">
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			*{margin: 0 !important;padding: 0 !important;}
+			.row {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.height100 {
+				height: 100%;
+			}
+		
+			.bgd{
+				overflow: hidden !important;
+			}
+		</style>
+	</head>
+
+	<body>
+			<div class="morebig">
+				<div class="row height100 ">
+					<div class="col-md-12 height100">
+						<div class="col-md-12 height100 CMIGzl">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+	<script>
+		$.ajax({
+			type : "get",
+			url : globalUrl + "/screensrv/rest/tableau/getTicket?param=screen81",
+			success : function(res) {
+				$(".CMIGzl").append("<iframe class='bgd' src=" + res + " width='100%' height='100%' frameborder='0'></iframe>");
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+                // 状态码
+                console.log(XMLHttpRequest.status);
+                // 状态
+                console.log(XMLHttpRequest.readyState);
+                // 错误信息   
+                console.log(textStatus);
+            }
+		});
+		
+		var $height = $(window).height();
+        $(".morebig").height($height - 60);
+	</script>
+</html>

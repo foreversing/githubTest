@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>CMIG财务</title>
+		<!-- <link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.css" />
+		<script src="bootstrap3/js/jquery-1.11.2.min.js"></script>
+		<script src="bootstrap3/js/bootstrap.min.js"></script> -->
+		<style type="text/css">
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+			}
+			*{margin: 0 !important;padding: 0 !important;}
+			.tableBoxHan {
+				height: 100%;
+				background: red;
+			}
+			
+			.container-fluid {
+				padding: 0px;
+				margin: 0px;
+			}
+			
+			.row {
+				padding: 0;
+				margin: 0;
+			}
+			
+			.height20 {
+				height: 20%;
+			}
+			
+			.height80 {
+				height: 80%;
+			}
+			
+			.height30 {
+				height: 30%;
+			}
+			
+			.height70 {
+				height: 70%;
+			}
+			
+			.height75 {
+				height: 75%;
+			}
+			
+			.height25 {
+				height: 25%;
+			}
+			
+			.height40 {
+				height: 40%;
+			}
+			
+			.height60 {
+				height: 60%;
+			}
+			
+			.height100 {
+				height: 100%;
+			}
+			
+			.height90 {
+				height: 90%;
+			}
+			
+			.height10 {
+				height: 10%;
+			}
+			.height15{
+				height: 15%;
+			}
+			.height65{
+				height: 65%;
+			}
+			.height50{
+				height: 50%;
+			}
+			.marginTop15{
+				border-top: 15px solid transparent ;
+				 box-sizing: border-box ;
+			}
+			.marginTop20{
+				border-top: 20px solid transparent ;
+				 box-sizing: border-box ;
+			}
+			.morebig{
+				padding-right: 15px !important;
+				padding-left: 15px !important;
+			}
+			.centerTeb{
+				padding-right: 10px !important;
+				padding-left: 10px !important;
+			}
+			.bgd{
+				/*background: #001a4b;*/
+				overflow: hidden !important;
+			}
+			.marginBott15{
+				border-bottom: 15px solid transparent ;
+				 box-sizing: border-box ;
+			}
+		</style>
+	</head>
+
+	<body>
+			<div class="morebig">
+				<div class="row second1 height100 ">
+					<!--left-->
+					<div class="col-md-4 height100 invePhase ">
+						<div class="col-md-12 height60 marginBott15 CMIGcw1">
+						</div>
+						<div class="col-md-12 height40  marginBott15 CMIGcw2" >
+						</div>
+
+					</div>
+					<!--center-->
+					<div class="col-md-4 height100 centerTeb">
+						<div class="col-md-12 height15">
+							<!--<iframe  class="bgd" frameborder="0" src=" " width="100%" height="100%"></iframe>-->
+						</div>
+						<div class="col-md-12 height70 CMIGcw3">
+						</div>
+					</div>
+					<!--right-->
+					<div class="col-md-4 height100 ">
+						<div class="col-md-12 height60 marginBott15 CMIGcw4">
+						</div>
+						<div class="col-md-12 height40  CMIGcw5 marginBott15 CMIGcw5">
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+	<script>
+//		$("iframe").each(function(){
+//			var srcs = $(this).attr("srcs");
+//			$(this).attr({src: globalUrl + srcs});
+//		});
+		var $height = $(window).height();
+        $(".morebig").height($height - 60);
+        //获取url
+       //获取url
+	 $.ajax({
+			type : "get",
+			url : globalUrl+"/screensrv/rest/tableau/getTicket31",
+			success : function(res) {
+				$(".CMIGcw1").append("<iframe class='bgd' src="+res+" width='100%' height='100%'></iframe>");
+			},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // 状态码
+                    console.log(XMLHttpRequest.status);
+                    // 状态
+                    console.log(XMLHttpRequest.readyState);
+                    // 错误信息   
+                    console.log(textStatus);
+                }
+		});
+		 $.ajax({
+			type : "get",
+			url :  globalUrl+"/screensrv/rest/tableau/getTicket32",
+			success : function(res) {
+				$(".CMIGcw2").append("<iframe class=' bgd' src="+res+" width='100%' height='100%'></iframe>");
+			},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // 状态码
+                    console.log(XMLHttpRequest.status);
+                    // 状态
+                    console.log(XMLHttpRequest.readyState);
+                    // 错误信息   
+                    console.log(textStatus);
+                }
+		});
+		 $.ajax({
+			type : "get",
+			url :  globalUrl+"/screensrv/rest/tableau/getTicket33",
+			success : function(res) {
+				$(".CMIGcw3").append("<iframe class=' bgd' src="+res+" width='100%' height='100%'></iframe>");
+			},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // 状态码
+                    console.log(XMLHttpRequest.status);
+                    // 状态
+                    console.log(XMLHttpRequest.readyState);
+                    // 错误信息   
+                    console.log(textStatus);
+                }
+		});
+		 $.ajax({
+			type : "get",
+			url :  globalUrl+"/screensrv/rest/tableau/getTicket34",
+			success : function(res) {
+				$(".CMIGcw4").append("<iframe class=' bgd' src="+res+" width='100%' height='100%'></iframe>");
+			},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // 状态码
+                    console.log(XMLHttpRequest.status);
+                    // 状态
+                    console.log(XMLHttpRequest.readyState);
+                    // 错误信息   
+                    console.log(textStatus);
+                }
+		});
+		 $.ajax({
+			type : "get",
+			url :  globalUrl+"/screensrv/rest/tableau/getTicket35",
+			success : function(res) {
+				$(".CMIGcw5").append("<iframe class=' bgd' src="+res+" width='100%' height='100%'></iframe>");
+			},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    // 状态码
+                    console.log(XMLHttpRequest.status);
+                    // 状态
+                    console.log(XMLHttpRequest.readyState);
+                    // 错误信息   
+                    console.log(textStatus);
+                }
+		});
+		
+	</script>
+</html>

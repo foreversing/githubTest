@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>数据动态监控</title>
+		<link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.css" />
+		<script src="bootstrap3/js/jquery-1.11.2.min.js"></script>
+		<script src="bootstrap3/js/bootstrap.min.js"></script>
+		<script src="js/highcharts.js"></script>
+		<script src="js/highcharts-more.js"></script>
+		<script src="js/common.js"></script>
+		<style type="text/css">
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				font-family: "黑体" !important;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+				min-width: 320px;
+			}
+			ul,
+			li {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+			
+			.container-fluid {
+				padding: 0px !important;
+				margin: 0px !important;
+				background-image: url(img/index_bgd.png);
+			}
+			
+			.container-fluid iframe {
+				position: absolute;
+				border: none;
+				left: 0;
+				top: 0;
+				width: 100%;
+				min-height: 100%;
+			}
+			
+			.row {
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+			
+			.height20 {
+				height: 20%;
+			}
+			
+			.height30 {
+				height: 30%;
+			}
+			
+			.height25 {
+				height: 25%;
+			}
+			
+			.height40 {
+				height: 40%;
+			}
+			
+			.height100 {
+				height: 100%;
+			}
+			
+			.navbar {
+				width: 100%;
+				padding: 0 !important;
+				border-radius: 0px !important;
+				z-index: 99;
+				margin-bottom: 0px !important;
+				border: none !important;
+			}
+			
+			.zmtDataHeader li {
+				z-index: 999;
+				display: inline-block;
+				height: 100%;
+			}
+			
+			.zmtDataHeader>li:nth-child(2) {
+				border-top: 60px solid rgba(11, 61, 153, 0.3);
+				border-right: 30px solid transparent;
+				border-left: 30px solid transparent;
+			}
+			
+			.zmtDataHeader>li:nth-child(2) div {
+				display: inline-block;
+				width: 100%;
+				height: 0;
+				border-top: 46px solid rgba(11, 61, 153, 0.6);
+				border-right: 30px solid transparent;
+				border-left: 30px solid transparent;
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -61px;
+			}
+			
+			.zmtDataHeader>li:nth-child(2) div>a {
+				font-weight: 600;
+				font-size: 25px;
+				font-family: "微软雅黑";
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: -40px;
+				color: #fff;
+				text-decoration: none;
+			}
+			.navbar ul {
+				background: rgba(11, 61, 153, 0.3);
+				height: 42px;
+			}
+			#tabs1 {
+				position: fixed;
+				bottom: 0;
+				text-align: center;
+				width: 100%;
+				height: 88px;
+				margin: 0 auto !important;
+				border: none;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				-webkit-box-pack: center;
+				-ms-flex-pack: center;
+				justify-content: center;
+			}
+			
+			#tabs1>ul:hover {
+				opacity: 1;
+			}
+			
+			#tabs1>ul {
+				padding: 0 0 0 4px;
+				background: #000;
+				opacity: 0;
+				background: rgba(0, 0, 0, 0.5);
+			}
+			
+			#tabs1>ul>li {
+				height: 88px;
+				width: 50px;
+				overflow: hidden;
+				margin-left: 26px !important;
+				cursor: pointer;
+				padding-top: 10px !important;
+			}
+			
+			#tabs1>ul>li:nth-child(1) {
+				margin-left: 0 !important;
+			}
+			
+			@media only screen and (max-width:992px) {
+				#tabs1 {
+					display: none;
+				}
+			}
+			
+			.bg {
+				background-image: url(img/index_bgd.png);
+				background-repeat: repeat;
+			}
+			/*左右按钮*/
+			
+			.left-btn {
+				position: fixed !important;
+				top: 0 !important;
+				left: 0 !important;
+				width: 44px;
+				height: 44px;
+				z-index: 250;
+				cursor: pointer;
+			}
+			
+			.right-btn {
+				position: fixed !important;
+				top: 0 !important;
+				right: 0 !important;
+				width: 44px;
+				height: 44px;
+				z-index: 250;
+				cursor: pointer;
+				-webkit-transform: rotate(180deg);
+				-ms-transform: rotate(180deg);
+				transform: rotate(180deg);
+			}
+			
+			.left-btn img,
+			.right-btn img {
+				width: 100%;
+			}
+			
+			.left-right-btn span {
+				cursor: pointer;
+				/*background: #fff;*/
+				/*新加下*/
+				border-radius: 30px;
+				background: #42b983;
+			}
+			
+			.left-right-btn span:before {
+				color: #eeeeee;
+				font-size: 26px;
+			}
+			
+			.left-right-btn span:last-child {
+				float: right;
+			}
+			
+			.active {
+				/* border: 1px solid red; */
+				-webkit-transform: scale(1.1);
+				-ms-transform: scale(1.1);
+				transform: scale(1.1)
+			}
+			
+			.lunboImg {
+				display: block;
+				max-width: 100%;
+				height: auto;
+				border-radius: 50%;
+			}
+			
+			.lunboText {
+				color: #fff;
+			}
+			
+			.fullScreenShade {
+				width: 100%;
+				height: 100%;
+				position: fixed;
+				left: 0;
+				bottom: 88px;
+				background: #000;
+				opacity: 0.4;
+				display: none;
+			}
+			
+			.controller {
+				position: absolute;
+				top: 9px;
+				left: 37%;
+				z-index: 100;
+				width: 25px;
+				height: 25px;
+				text-align: center;
+				cursor: pointer;
+			}
+			
+			.fullscrren {
+				position: absolute;
+				top: 9px;
+				left: 60.5%;
+				z-index: 100;
+				min-width: 25px;
+				height: 25px;
+				text-align: center;
+				cursor: pointer;
+			}
+			
+			.dateTime {
+				position: absolute;
+				top: 6px;
+				left: 0;
+				z-index: 100;
+				width: 100px;
+				height: 50px;
+				color: #fff;
+			}
+			
+			#controller2 {
+				width: 24.5%;
+				height: 100px;
+				position: fixed;
+				top: 0px;
+				right: 0;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				z-index: 100;
+				-ms-flex-pack: distribute;
+				justify-content: space-around;
+			}
+			
+			.nav-tabs {
+				border: none;
+			}
+			/* 更改密码框 */
+			
+			.attrPsd {
+				width: 600px;
+				height: 280px;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin-top: -140px!important;
+				margin-left: -300px!important;
+				background: #eee;
+				border-radius: 5px;
+				display: none;
+				z-index: 150;
+			}
+			
+			.shade {
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background: black;
+				opacity: .5;
+				z-index: 140;
+				display: none;
+			}
+			
+			.attrPsd_title {
+				height: 50px;
+				border-bottom: 1px solid #eee;
+				text-align: right;
+				padding-right: 20px!important;
+				line-height: 50px;
+				margin-bottom: 20px!important;
+			}
+			
+			.attrPsd_title span {
+				float: left;
+				padding-left: 15px!important;
+				font-size: 16px;
+				font-weight: bold;
+			}
+			
+			.attrPsd_title i {
+				cursor: pointer;
+				display: inline-block;
+			}
+			
+			.attrPsd_content {
+				padding: 10px 40px!important;
+			}
+			
+			.attrPsd_content input {
+				text-indent: 10px;
+				margin-left: 10px!important;
+				margin-right: 10px!important;
+				width: 300px!important;
+			}
+			
+			.attrPsd_content span {
+				color: red;
+				display: none;
+			}
+			
+			.attrPsd_footer {
+				padding-right: 80px!important;
+			}
+			
+			.controller img,
+			.fullscrren img,
+			.psdicon img {
+				width: 25px;
+				height: 25px;
+			}
+			
+			.controller_text,
+			.fullscrren_text,
+			.psdicon_text {
+				color: #3962aa;
+				padding-top: 10px;
+				font-size: 12px;
+			}
+			
+			.psdicon {
+				position: absolute;
+				top: 9px;
+				left: 49%;
+				z-index: 100;
+				width: 25px;
+				height: 25px;
+				text-align: center;
+				cursor: pointer;
+			}
+			
+			.tipmessage {
+				display: inline-block;
+				width: 100%;
+				height: 30px;
+				text-align: center;
+				padding-left: 50px!important;
+				color: red;
+				line-height: 30px;
+			}
+			#controller3 {
+				width: 24.5%;
+				height: 100px;
+				color: #fff;
+				position: fixed;
+				font-size: 12px;
+				top: 0px;
+				left: 0;
+				display: -webkit-box;
+				display: -ms-flexbox;
+				display: flex;
+				z-index: 100;
+				-ms-flex-pack: distribute;
+				justify-content: space-around;
+			}
+			.text-danger{
+				color: red;
+				font-weight: bolder;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row bg">
+				<div class="tab-content bigScreen">
+					<nav class="navbar">
+						<ul class="zmtDataHeader">
+							<li class="col-lg-3 col-md-3 col-sm-0 col-xs-0 "></li>
+							<li class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center">
+								<div>
+									<a>中民投核心数据监控大屏</a>
+								</div>
+							</li>
+							<li class="col-lg-3 col-md-3 col-sm-0 col-xs-0 "></li>
+					</nav>
+					<div id="mian-inner" class="tab-pane"></div>
+				</div>
+			</div>
+			<div id="tabs1">
+				<ul class="nav-tabs nav">
+					<li cmig-data="cmigPage-main">
+						<img src="img/zonglan.png" alt="" class="lunboImg">
+						<p class="lunboText">总览</p>
+					</li>
+					<li cmig-data="cmigPage-tg">
+						<img src="img/touguan.png" alt="" class="lunboImg">
+						<p class="lunboText">投管</p>
+					</li>
+					<li cmig-data="cmigPage-cw">
+						<img src="img/caiwu.png" alt="" class="lunboImg">
+						<p class="lunboText">财务</p>
+					</li>
+					<li cmig-data="cmigPage-jy">
+						<img src="img/jiaye.png" alt="" class="lunboImg">
+						<p class="lunboText">嘉业</p>
+					</li>
+					<li cmig-data="cmigPage-xn">
+						<img src="img/xinneng.png" alt="" class="lunboImg">
+						<p class="lunboText">新能</p>
+					</li>
+					<li cmig-data="cmigPage-wy">
+						<img src="img/weilai.png" alt="" class="lunboImg">
+						<p class="lunboText">未来</p>
+					</li>
+					<li cmig-data="cmigPage-hl">
+						<img src="img/hanglv.png" alt="" class="lunboImg">
+						<p class="lunboText">航旅</p>
+					</li>
+					<li cmig-data="cmigPage-zl">
+						<img src="img/zulin.png" alt="" class="lunboImg">
+						<p class="lunboText">租赁</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="fullScreenShade"></div>
+		<div class="left-btn">
+			<img src="img/left_right.png" title="切换至上一屏">
+		</div>
+		<div class="right-btn">
+			<img src="img/left_right.png" title="切换至下一屏">
+		</div>
+		<div id="controller2">
+			<div class="dateTime">
+				<h3 class="times"></h3>
+				<div class="weeks">
+					<span class="dates"></span>
+					<span class="week" style="marging-left:30px;"></span>
+				</div>
+			</div>
+			<div class="controller">
+				<div>
+					<img src="img/pass.png" alt="">
+					<p class="controller_text">暂停</p>
+				</div>
+				<div class="hide">
+					<img src="img/play.png" alt="">
+					<p class="controller_text">播放</p>
+				</div>
+			</div>
+			<div class="psdicon">
+				<img src="img/psdicon.png" alt="">
+				<p class="psdicon_text">密码</p>
+			</div>
+			<div class="fullscrren">
+				<img src="img/fullscreen.png" alt="">
+				<p class="fullscrren_text">全屏</p>
+			</div>
+		</div>
+		<div id="controller3">
+			<div class="user_descrip">
+				<div class="user_name">
+					<p>当前用户：<span class="user_user">123</span></p>
+				</div>
+				<div>
+					<p>当前IP：<span  class="user-ip">456879645131</span></p>
+				</div>
+				<div class="user-pass">
+				<p>传输状态：<span class="text text-danger">加密</span></p>
+			</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+
+		<!-- 遮罩层 -->
+		<div class="shade"></div>
+		<!-- 修改密码弹窗 -->
+		<div class="attrPsd">
+			<div class="attrPsd_title">
+				<span class="smalltitle">修改新密码</span>
+				<i class="glyphicon glyphicon-remove" id="close"></i>
+			</div>
+			<div class="attrPsd_content">
+				<div class="form-inline">
+					<div class="form-group" style="margin-bottom: 20px!important">
+						<label for="exampleInputEmail1">请输入新密码:</label>
+						<input type="password" class="form-control psd1" id="exampleInputEmail1" placeholder="输入新密码">
+
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">请确认新密码:</label>
+						<input type="password" class="form-control psd2" id="exampleInputPassword1" placeholder="确认密码">
+
+					</div>
+				</div>
+			</div>
+			<div class="tipmessage"></div>
+			<div class="attrPsd_footer pull-right">
+				<input class="btn btn-primary" type="button" value="确定" style="padding: 6px 12px!important;" id="YES">
+				<input type="button" class="btn btn-info " value="取消" style="padding: 6px 12px!important;" id="NO">
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="modal-backdrop fade in">系统登录中，请稍等...</div>
+	</body>
+
+	<script>
+		tabContent();
+		var oDate = new Date();
+		var month = oDate.getMonth() + 1; //月
+		date = oDate.getDate();
+		hour = oDate.getHours();
+		minutes = oDate.getMinutes() < 10 ? "0" + oDate.getMinutes() : oDate.getMinutes();
+		second = oDate.getSeconds();
+		var l = ["日", "一", "二", "三", "四", "五", "六"];
+		var d = oDate.getDay();
+		var str = "星期" + l[d];
+
+		setInterval(function() {
+			var oDate = new Date();
+			hour = oDate.getHours();
+			minutes = oDate.getMinutes() < 10 ? "0" + oDate.getMinutes() : oDate.getMinutes();
+			$(".times").empty();
+			$(".times").html(hour + ":" + minutes);
+		}, 3000)
+		$(".dates").html(month + "月" + date + "日");
+		$(".week").html(str);
+		$("#tabs1").on("mouseover", "ul", function() {
+			$(".fullScreenShade").show();
+			$("#tabs1").css({
+				background: "rgba(0, 0, 0, 0.4)"
+			});
+		})
+		$("#tabs1").on("mouseout", "ul", function() {
+			$(".fullScreenShade").hide();
+			$("#tabs1").css({
+				background: "rgba(0, 0, 0, 0)"
+			});
+		})
+		flagLogin();
+		$(function() {
+			$(document).ajaxStop(function() {
+				$(".modal-backdrop").hide();
+			});
+			initContainer3();
+			//嘉业项目
+		})
+		$(window).resize(function(event) {
+			var fullScreen = $(window).height();
+			$('.bigScreen').height(fullScreen);
+			$(".container-fluid").height(fullScreen).css("background-image", "url(img/index_bgd.png)");
+			$(".modal-backdrop").height(fullScreen);
+			$(".modal-backdrop").css({
+				"line-height": fullScreen + 'px',
+				'text-align': 'center',
+				'font-family': '微软雅黑',
+				'font-size': '25px',
+				'color': '#fff'
+			});
+			$(".bigScreen .tab-pane").height(fullScreen - 60);
+		});
+	</script>
+	<script>
+		var $height = $(window).height();
+		$(".container-fluid").height($height);
+		$('.bigScreen').height($height);
+		$(".bigScreen>div").height($height - 60);
+		$(".modal-backdrop").height($height);
+		$(".modal-backdrop").css({
+			"line-height": $height + 'px',
+			'text-align': 'center',
+			'font-family': '微软雅黑',
+			'font-size': '25px',
+			'color': '#fff'
+		});
+		$(".container-fluid").css("background-image", "url(img/index_bgd.png)");
+	</script>
+	<script>
+		//各子页面屏幕适配
+		$(function() {
+			window.onresize = function() {
+				var $height = $(window).height();
+				var $width = $(window).width();
+				$('.morebig').height($height - 60);
+				//嘉业背景图
+
+				$(".morebigyj").height($height - 60);
+				$('.progressSlipFa').css('font-size',$width*0.018);
+				$('.progressSlip').css('font-size',$width*0.026);
+				$('.projecSlip').css('font-size',$width*0.009);
+				$('.projecEnd').css('font-size',$width*0.015);
+				$('.colorSize').css('font-size',$width*0.012);
+				$('.nowstate').css('font-size',$width*0.01);
+                $('.nowstate').css('font-size',$width*0.01);
+                $('.nowstatetext').css('font-size',$width*0.015);
+			}
+		});
+		var userName = sessionStorage.getItem("userName");
+		$(".user_user").text(userName).css("font-weight","bolder");
+		  $.ajax({
+				type:"get",
+				url: globalUrl + "/screensrv/rest/tableau/getIp",
+				async:true,
+				success:function(data){
+					if(data.substring(0,1)=='0'){
+						 $(".user-ip").text(data);
+					}else{
+							$(".user-ip").text(data);
+					}
+				}
+			});
+	</script>
+
+</html>
